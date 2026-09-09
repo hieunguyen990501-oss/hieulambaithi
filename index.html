@@ -3,99 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Combo 10 Mẫu Phôi Nền Word</title>
+<title>Combo 10 Mẫu Phôi Nền Word — Hiếu Làm Bài Thi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --do-co:#A2172B; --do-co-toi:#7E1120; --vang-dong:#C79A3E;
+    --do-co:#A2172B; --do-co-toi:#7E1120; --vang-dong:#C79A3E; --vang-nhat:#E4C878;
     --nga-giay:#F6F1E6; --nga-giay-toi:#EDE4D3; --muc-den:#221F1D; --xanh-reu:#43503D;
     --border-nhe: rgba(34,31,29,0.14);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--nga-giay);color:var(--muc-den);font-family:'Be Vietnam Pro',sans-serif;line-height:1.55;}
-  h1,h2,.serif{font-family:'Noto Serif',serif;}
-  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+  body{background:var(--nga-giay);color:var(--muc-den);font-family:'Be Vietnam Pro',sans-serif;line-height:1.6;}
+  h1,h2,h3,.serif{font-family:'Noto Serif',serif;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
 
-  header{border-bottom:2px solid var(--vang-dong);padding:16px 0;}
-  .logo{display:flex;align-items:center;gap:10px;max-width:920px;margin:0 auto;padding:0 20px;}
-  .logo-mark{width:34px;height:34px;border-radius:50%;background:var(--do-co);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Serif',serif;font-weight:700;font-size:13px;}
-  .logo-text{font-family:'Noto Serif',serif;font-weight:700;font-size:17px;}
-  .logo-text span{color:var(--do-co);}
-
-  .product{padding:56px 0;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;}
-  .thumb{aspect-ratio:3/4;background:linear-gradient(135deg,var(--nga-giay-toi),#e4d9c2);border:1px solid var(--border-nhe);display:flex;align-items:center;justify-content:center;color:var(--xanh-reu);font-size:13px;font-weight:600;letter-spacing:0.5px;}
-  .info .tag{font-size:13px;font-weight:600;color:var(--xanh-reu);margin-bottom:12px;}
-  .info h1{font-size:30px;line-height:1.3;margin-bottom:14px;}
-  .info p{color:#4a4642;margin-bottom:20px;}
-  .price{font-size:26px;font-weight:700;color:var(--do-co);margin-bottom:24px;}
-  .price span{font-size:14px;color:var(--xanh-reu);font-weight:500;margin-left:8px;}
-  .btn-buy{
-    background:var(--do-co);color:#fff;border:none;padding:14px 32px;font-size:15px;font-weight:600;
-    cursor:pointer;letter-spacing:0.2px;
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:60;background:var(--nga-giay);
+    border-bottom:2px solid var(--vang-dong);
   }
-  .btn-buy:hover{background:var(--do-co-toi);}
-  .btn-buy:disabled{opacity:0.6;cursor:default;}
+  .header-inner{
+    max-width:1120px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo-mark{width:36px;height:36px;border-radius:50%;background:var(--do-co);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Serif',serif;font-weight:700;font-size:14px;flex-shrink:0;}
+  .logo-img{height:38px;width:auto;flex-shrink:0;}
+  .logo-text{font-family:'Noto Serif',serif;font-weight:700;font-size:18px;}
+  .logo-text span{color:var(--do-co);}
+  nav{display:flex;align-items:center;gap:28px;}
+  nav a{font-size:14.5px;font-weight:500;text-decoration:none;}
+  nav a:hover{color:var(--do-co);}
+  .btn{
+    background:var(--do-co);color:#fff;border:none;padding:11px 24px;font-size:14.5px;font-weight:600;
+    cursor:pointer;border-radius:2px;letter-spacing:0.2px;white-space:nowrap;
+  }
+  .btn:hover{background:var(--do-co-toi);}
+  .btn:disabled{opacity:0.6;cursor:default;}
+  .btn-lg{padding:15px 34px;font-size:16px;}
+
+  /* Hero */
+  .hero{padding:56px 0 60px;}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:center;}
+  .eyebrow{
+    font-size:13.5px;font-weight:600;color:var(--xanh-reu);display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--vang-dong);}
+  .hero h1{font-size:38px;line-height:1.22;font-weight:700;margin-bottom:8px;}
+  .hero h1 .num{color:var(--do-co);}
+  .hero-desc{font-size:15.5px;color:#4a4642;margin:14px 0 22px;max-width:480px;}
+  .feature-row{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:26px;}
+  .feature-row span{
+    font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:7px;
+  }
+  .feature-row .dot{width:6px;height:6px;border-radius:50%;background:var(--do-co);flex-shrink:0;}
+  .price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:24px;}
+  .price-row .amount{font-size:32px;font-weight:700;color:var(--do-co);font-family:'Noto Serif',serif;}
+  .price-row .unit{font-size:14px;color:var(--xanh-reu);font-weight:500;}
+  .cta-note{font-size:13px;color:#6b665f;margin-top:12px;}
+
+  .hero-visual{position:relative;}
+  .hero-visual img{width:100%;height:auto;}
+  .badge-word{
+    position:absolute;top:8px;right:8px;background:#fff;border:1px solid var(--border-nhe);
+    padding:8px 14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;
+    box-shadow:0 4px 14px rgba(34,31,29,.08);
+  }
+  .badge-word .w{width:24px;height:24px;background:#2B579A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border-radius:3px;}
+
+  /* Section shared */
+  .section{padding:56px 0;}
+  .section-alt{background:var(--nga-giay-toi);}
+  .section-title{
+    text-align:center;font-size:26px;font-weight:700;margin-bottom:36px;
+    display:flex;align-items:center;justify-content:center;gap:16px;
+  }
+  .section-title::before, .section-title::after{content:"";width:36px;height:1px;background:var(--vang-dong);}
+
+  /* Benefits */
+  .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .benefit-card{
+    background:#fff;border:1px solid var(--border-nhe);padding:26px 20px;text-align:center;
+  }
+  .benefit-icon{
+    width:48px;height:48px;border-radius:50%;background:var(--nga-giay-toi);color:var(--do-co);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px;
+  }
+  .benefit-card h3{font-size:15px;font-weight:700;margin-bottom:6px;}
+  .benefit-card p{font-size:12.5px;color:#6b665f;line-height:1.5;}
+
+  /* Preview grid */
+  .preview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .preview-card{background:#fff;border:1px solid var(--border-nhe);overflow:hidden;position:relative;}
+  .preview-card img{aspect-ratio:3/4.24;object-fit:cover;width:100%;}
+  .preview-label{
+    position:absolute;top:8px;left:8px;background:var(--muc-den);color:#fff;
+    font-size:11px;font-weight:600;padding:3px 9px;letter-spacing:0.3px;
+  }
+
+  /* Product info */
+  .info-section .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  .info-list{list-style:none;}
+  .info-list li{display:flex;gap:12px;margin-bottom:16px;font-size:15px;}
+  .info-list .check{
+    width:20px;height:20px;border-radius:50%;background:var(--do-co);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:2px;
+  }
+  .quote-card{
+    background:#fff;border:1px solid var(--border-nhe);padding:32px;position:relative;
+  }
+  .quote-card::before{
+    content:"“";position:absolute;top:6px;left:16px;font-family:'Noto Serif',serif;font-size:56px;color:var(--vang-dong);line-height:1;
+  }
+  .quote-card p{font-family:'Noto Serif',serif;font-style:italic;font-size:17px;line-height:1.6;padding-left:8px;}
+
+  /* Sticky bottom bar */
+  .sticky-bar{
+    position:fixed;bottom:0;left:0;right:0;background:var(--muc-den);color:#fff;z-index:70;
+    transform:translateY(100%);transition:transform .25s ease;
+  }
+  .sticky-bar.show{transform:translateY(0);}
+  .sticky-bar .wrap{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;
+  }
+  .sticky-bar .left{display:flex;align-items:center;gap:14px;}
+  .sticky-bar .gift{
+    width:38px;height:38px;border-radius:50%;background:var(--do-co);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;
+  }
+  .sticky-bar .sb-title{font-size:14px;font-weight:600;}
+  .sticky-bar .sb-sub{font-size:12px;color:#c9c5bd;}
+  .sticky-bar .sb-price{font-family:'Noto Serif',serif;font-size:20px;font-weight:700;color:var(--vang-dong);}
+
+  footer{background:var(--muc-den);color:#c9c5bd;padding:28px 0 90px;font-size:13px;text-align:center;}
+  footer strong{color:#fff;}
 
   /* Modal */
-  .overlay{
-    display:none;position:fixed;inset:0;background:rgba(34,31,29,0.55);
-    align-items:center;justify-content:center;padding:20px;z-index:100;
-  }
+  .overlay{display:none;position:fixed;inset:0;background:rgba(34,31,29,0.6);align-items:center;justify-content:center;padding:20px;z-index:100;}
   .overlay.show{display:flex;}
-  .modal{
-    background:#fff;max-width:400px;width:100%;padding:28px;border:1px solid var(--border-nhe);
-  }
+  .modal{background:#fff;max-width:400px;width:100%;padding:28px;border:1px solid var(--border-nhe);}
   .modal h2{font-size:19px;margin-bottom:6px;}
   .modal .sub{font-size:13.5px;color:#6b665f;margin-bottom:20px;}
   .modal label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;margin-top:14px;}
-  .modal input{
-    width:100%;border:1.5px solid var(--muc-den);padding:10px 12px;font-size:14px;font-family:inherit;
-  }
-  .modal .btn-buy{width:100%;margin-top:22px;}
+  .modal input{width:100%;border:1.5px solid var(--muc-den);padding:10px 12px;font-size:14px;font-family:inherit;}
+  .modal .btn{width:100%;margin-top:22px;}
   .qr-box{text-align:center;padding-top:6px;}
   .qr-box img{width:220px;height:220px;margin:0 auto 14px;border:1px solid var(--border-nhe);}
   .qr-box .code{font-family:'Noto Serif',serif;font-weight:700;font-size:17px;color:var(--do-co);margin-bottom:6px;}
   .qr-box .amount{font-size:14px;margin-bottom:14px;}
   .qr-box .note{font-size:12.5px;color:#6b665f;line-height:1.5;}
-  .status{
-    margin-top:16px;padding:10px;text-align:center;font-size:13.5px;font-weight:600;
-    background:var(--nga-giay-toi);
-  }
+  .status{margin-top:16px;padding:10px;text-align:center;font-size:13.5px;font-weight:600;background:var(--nga-giay-toi);}
   .status.paid{background:#e6efe0;color:#2c4a1f;}
   .close-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#6b665f;}
   .modal-wrap{position:relative;}
 
-  footer{padding:32px 0;border-top:1px solid var(--border-nhe);font-size:12.5px;color:#7c7873;text-align:center;}
-
-  @media (max-width:700px){
-    .product{grid-template-columns:1fr;padding:36px 0;}
+  @media (max-width:860px){
+    nav{display:none;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero h1{font-size:30px;}
+    .benefits{grid-template-columns:repeat(2,1fr);}
+    .preview-grid{grid-template-columns:repeat(3,1fr);}
+    .info-section .wrap{grid-template-columns:1fr;}
+    .sticky-bar .sb-sub{display:none;}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <div class="logo-mark">HS</div>
-    <div class="logo-text">HỒ SƠ <span>VIỆT</span></div>
+  <div class="header-inner">
+    <div class="logo">
+      <img src="logo.png" class="logo-img" alt="Hiếu Làm Bài Thi">
+      <div class="logo-text">Hiếu <span>Làm</span> Bài Thi</div>
+    </div>
+    <nav>
+      <a href="#mau">Mẫu</a>
+      <a href="#thong-tin">Thông tin</a>
+      <button class="btn" id="openBuyTop">Mua ngay</button>
+    </nav>
   </div>
 </header>
 
-<section class="product">
-  <div class="wrap" style="display:contents;">
-    <div class="thumb">ẢNH SẢN PHẨM</div>
-    <div class="info">
-      <div class="tag">COMBO 10 MẪU PHÔI NỀN WORD</div>
-      <h1>Combo 10 Mẫu Phôi Nền Word — Tiết Kiệm Thời Gian, Bài Viết Chuyên Nghiệp Hơn</h1>
-      <p>File .docx dựng sẵn, canh lề chuẩn, đánh số trang tự động — chỉ cần thay nội dung. Phù hợp bài thu hoạch, báo cáo, tiểu luận, bài dự thi.</p>
-      <div class="price">79.000₫ <span>trọn bộ 10 mẫu, thanh toán 1 lần</span></div>
-      <button class="btn-buy" id="openBuy">Mua ngay</button>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Tiết kiệm thời gian, bài viết chuyên nghiệp hơn</div>
+      <h1>Combo <span class="num">10</span> Mẫu<br>Phôi Nền Word</h1>
+      <p class="hero-desc">File .docx dựng sẵn, canh lề chuẩn, đánh số trang tự động — chỉ cần thay nội dung. Phù hợp bài thu hoạch, báo cáo, tiểu luận, bài dự thi.</p>
+      <div class="feature-row">
+        <span><span class="dot"></span>Căn lề sẵn</span>
+        <span><span class="dot"></span>Đánh số trang</span>
+        <span><span class="dot"></span>Chỉ cần thay nội dung</span>
+      </div>
+      <div class="price-row">
+        <span class="amount">79.000₫</span>
+        <span class="unit">/ trọn bộ 10 mẫu</span>
+      </div>
+      <button class="btn btn-lg" id="openBuy">Mua ngay</button>
+      <div class="cta-note">Nhận file tải về ngay sau khi thanh toán</div>
+    </div>
+    <div class="hero-visual">
+      <div class="badge-word"><span class="w">W</span>File Word chỉnh sửa được</div>
+      <img src="hero-collage.png" alt="Combo 10 mẫu phôi nền Word">
     </div>
   </div>
 </section>
 
-<footer>Bản demo landing page — cần thay logo, ảnh sản phẩm, thông tin ngân hàng thật trước khi vận hành.</footer>
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-title">Bạn nhận được gì?</div>
+    <div class="benefits">
+      <div class="benefit-card">
+        <div class="benefit-icon">📄</div>
+        <h3>10 mẫu khác nhau</h3>
+        <p>Đa dạng phong cách, phù hợp nhiều nhu cầu</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">W</div>
+        <h3>File Word chỉnh sửa được</h3>
+        <p>Dễ dàng chỉnh nội dung theo ý muốn</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">≡</div>
+        <h3>Căn lề sẵn</h3>
+        <p>Định dạng chuẩn, tiết kiệm thời gian</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">#</div>
+        <h3>Đánh số trang sẵn</h3>
+        <p>Chỉ cần thay nội dung là sử dụng</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mau">
+  <div class="wrap">
+    <div class="section-title">Xem trước 10 mẫu</div>
+    <div class="preview-grid">
+      <div class="preview-card"><span class="preview-label">Mẫu 01</span><img src="mau-001.jpg" alt="Mẫu 01"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 02</span><img src="mau-002.jpg" alt="Mẫu 02"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 03</span><img src="mau-003.jpg" alt="Mẫu 03"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 04</span><img src="mau-004.jpg" alt="Mẫu 04"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 05</span><img src="mau-005.jpg" alt="Mẫu 05"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 06</span><img src="mau-006.jpg" alt="Mẫu 06"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 07</span><img src="mau-007.jpg" alt="Mẫu 07"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 08</span><img src="mau-008.jpg" alt="Mẫu 08"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 09</span><img src="mau-009.jpg" alt="Mẫu 09"></div>
+      <div class="preview-card"><span class="preview-label">Mẫu 10</span><img src="mau-010.jpg" alt="Mẫu 10"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt info-section" id="thong-tin">
+  <div class="wrap">
+    <div>
+      <div class="section-title" style="justify-content:flex-start;margin-bottom:24px;">
+        <span style="font-size:22px;">Thông tin sản phẩm</span>
+      </div>
+      <ul class="info-list">
+        <li><span class="check">✓</span>Phù hợp cho bài thu hoạch, báo cáo, tiểu luận, bài dự thi</li>
+        <li><span class="check">✓</span>10 file Word chỉnh sửa được, tải về dùng ngay</li>
+        <li><span class="check">✓</span>Nhiều tone màu và phong cách khác nhau</li>
+        <li><span class="check">✓</span>Chỉ cần thay nội dung là sử dụng được</li>
+      </ul>
+    </div>
+    <div class="quote-card">
+      <p>Một nền tài liệu đẹp là khởi đầu cho một bài viết ấn tượng.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>Hiếu Làm Bài Thi</strong> — Tài liệu đẹp, học tập dễ hơn<br>
+    Sản phẩm số — dùng cho mục đích cá nhân, không chia sẻ bán lại.<br>
+    Cảm ơn bạn đã ủng hộ!
+  </div>
+</footer>
+
+<div class="sticky-bar" id="stickyBar">
+  <div class="wrap">
+    <div class="left">
+      <div class="gift">🎁</div>
+      <div>
+        <div class="sb-title">Sẵn sàng sử dụng ngay</div>
+        <div class="sb-sub">Bộ 10 mẫu phôi nền Word chất lượng, tiện lợi</div>
+      </div>
+    </div>
+    <div class="left">
+      <div class="sb-price">79.000₫</div>
+      <button class="btn" id="openBuySticky">Mua ngay</button>
+    </div>
+  </div>
+</div>
 
 <div class="overlay" id="overlay">
   <div class="modal modal-wrap">
@@ -108,7 +310,7 @@
       <input type="text" id="nameInput" placeholder="Nguyễn Văn A">
       <label>Email liên hệ (để hỗ trợ khi cần)</label>
       <input type="email" id="emailInput" placeholder="ban@email.com">
-      <button class="btn-buy" id="submitOrder">Tạo mã thanh toán</button>
+      <button class="btn" id="submitOrder">Tạo mã thanh toán</button>
     </div>
 
     <div id="qrStep" style="display:none;">
@@ -118,19 +320,30 @@
         <div class="amount">Số tiền: <strong>79.000₫</strong></div>
         <div class="note">Quét mã bằng app ngân hàng hoặc Ví MoMo/ZaloPay. Giữ nguyên nội dung chuyển khoản để hệ thống tự đối chiếu.</div>
         <div class="status" id="statusBox">Đang chờ thanh toán...</div>
-        <a href="#" id="downloadBtn" class="btn-buy" style="display:none;margin-top:14px;text-decoration:none;text-align:center;">Tải file ngay</a>
+        <a href="#" id="downloadBtn" class="btn" style="display:none;margin-top:14px;text-decoration:none;text-align:center;">Tải file ngay</a>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // ĐIỀN URL WEB APP GOOGLE APPS SCRIPT SAU KHI DEPLOY
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvfzNAkpnnnqF_2EIP11pnLnunYYdCEdqm25qpNfQ80wsgAIA-H8Uo0aH7dPCI-fpg/exec';
 
   const overlay = document.getElementById('overlay');
-  document.getElementById('openBuy').onclick = () => overlay.classList.add('show');
+  function openModal(){ overlay.classList.add('show'); }
+  document.getElementById('openBuy').onclick = openModal;
+  document.getElementById('openBuyTop').onclick = openModal;
+  document.getElementById('openBuySticky').onclick = openModal;
   document.getElementById('closeModal').onclick = () => { overlay.classList.remove('show'); location.reload(); };
+
+  // Sticky bar shows after scrolling past hero
+  const stickyBar = document.getElementById('stickyBar');
+  const heroBtn = document.getElementById('openBuy');
+  window.addEventListener('scroll', () => {
+    const heroBottom = heroBtn.getBoundingClientRect().bottom;
+    if (heroBottom < 0) stickyBar.classList.add('show');
+    else stickyBar.classList.remove('show');
+  });
 
   let pollTimer = null;
 
@@ -156,7 +369,7 @@
 
       pollTimer = setInterval(() => checkStatus(data.code), 5000);
     } catch (err) {
-      alert('Không tạo được mã thanh toán. Lỗi: ' + err.message + '\n\nLưu ý: nếu bạn đang mở file trực tiếp từ ổ đĩa (đường dẫn bắt đầu bằng C:/ hoặc file://), trình duyệt sẽ chặn kết nối. Hãy chạy thử qua localhost hoặc đưa lên GitHub Pages.');
+      alert('Không tạo được mã thanh toán. Lỗi: ' + err.message);
       btn.disabled = false; btn.textContent = 'Tạo mã thanh toán';
     }
   };
