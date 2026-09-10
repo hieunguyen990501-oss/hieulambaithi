@@ -464,6 +464,40 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl3T7v5Mq2z4MZgyoJAiOc4wjELijf2df6ZM_uVeNN3ATHCXWEiW4Xj4qb6zC8plJw/exec';
   const TONG_SO_MAU = 10;
 
+  /* ===================== TikTok Pixel — sự kiện phễu mua hàng =====================
+     - ClickButton      : bấm nút mở luồng mua (chỉ đo hành vi)
+     - InitiateCheckout : đã tạo mã & hiện QR (bắt đầu bước thanh toán)
+     - CompletePayment  : backend xác nhận ĐÃ NHẬN TIỀN (chỉ bắn 1 lần / đơn)
+     Mọi lời gọi đều bọc try/catch + kiểm tra ttq để không vỡ trang nếu Pixel bị chặn.
+     ============================================================================== */
+  const TEN_GOI = { '1': '1 mẫu lẻ', '3': 'Combo 3 mẫu', '5': 'Combo 5 mẫu', '10': 'Trọn bộ 10 mẫu' };
+
+  function ttEventData(order){
+    return {
+      value: Number(order.amount) || 0,
+      currency: 'VND',
+      content_type: 'product',
+      content_id: 'goi-' + order.pkg,
+      content_name: TEN_GOI[order.pkg] || ('Gói ' + order.pkg + ' mẫu'),
+      quantity: Number(order.pkg) || 1,
+      order_id: order.code || undefined
+    };
+  }
+  function ttTrack(eventName, order){
+    try {
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track(eventName, ttEventData(order));
+      }
+    } catch (e) {}
+  }
+  function ttClick(name){
+    try {
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track('ClickButton', { content_name: name });
+      }
+    } catch (e) {}
+  }
+
   const overlay = document.getElementById('overlay');
   const goiStep = document.getElementById('goiStep');
   const chonMauStep = document.getElementById('chonMauStep');
@@ -473,6 +507,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   let selectedPkg = '10';
   let selectedItems = [];   // vd: ['2','5','7']
   let pollTimer = null;
+
+  // Đơn hàng hiện tại + cờ chống bắn trùng CompletePayment khi polling lặp
+  let currentOrder = null;      // { code, amount, pkg }
+  let purchaseTracked = false;
 
   function showStep(el){
     [goiStep, chonMauStep, formStep, qrStep].forEach(function(s){ s.style.display = 'none'; });
@@ -486,11 +524,14 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     openModal();
   }
 
-  document.getElementById('openBuy').onclick = function(){ openModal(); };
-  document.getElementById('openBuyTop').onclick = function(){ openModal(); };
-  document.getElementById('openBuySticky').onclick = function(){ openModal(); };
+  document.getElementById('openBuy').onclick = function(){ ttClick('Chọn gói & mua ngay'); openModal(); };
+  document.getElementById('openBuyTop').onclick = function(){ ttClick('Mua ngay (header)'); openModal(); };
+  document.getElementById('openBuySticky').onclick = function(){ ttClick('Mua ngay (thanh dưới)'); openModal(); };
   Array.prototype.forEach.call(document.querySelectorAll('.buy-goi'), function(b){
-    b.onclick = function(){ openModalWithPkg(b.getAttribute('data-goi')); };
+    b.onclick = function(){
+      ttClick('Mua gói ' + (TEN_GOI[b.getAttribute('data-goi')] || b.getAttribute('data-goi')));
+      openModalWithPkg(b.getAttribute('data-goi'));
+    };
   });
   document.getElementById('closeModal').onclick = function(){ overlay.classList.remove('show'); location.reload(); };
 
@@ -596,6 +637,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
+      // Ghi nhận đơn hiện tại + reset cờ tracking cho đơn mới
+      currentOrder = { code: data.code, amount: Number(data.amount), pkg: selectedPkg };
+      purchaseTracked = false;
+
       document.getElementById('qrImg').src = data.qrUrl;
       document.getElementById('orderCode').textContent = 'Mã đơn hàng: ' + data.code;
       document.getElementById('qrAmount').textContent = Number(data.amount).toLocaleString('vi-VN') + '₫';
@@ -603,6 +648,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       document.getElementById('statusBox').classList.remove('paid');
       document.getElementById('downloadArea').innerHTML = '';
       showStep(qrStep);
+
+      // >>> TikTok: bắt đầu bước thanh toán (QR đã được tạo)
+      ttTrack('InitiateCheckout', currentOrder);
 
       pollTimer = setInterval(function(){ checkStatus(data.code); }, 5000);
     } catch (err) {
@@ -621,6 +669,12 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       box.textContent = 'Đã thanh toán thành công! Tải file bên dưới.';
       box.classList.add('paid');
       clearInterval(pollTimer);
+
+      // >>> TikTok: xác nhận đã nhận tiền — chỉ bắn 1 lần cho đúng đơn này
+      if (!purchaseTracked && currentOrder && currentOrder.code === code) {
+        purchaseTracked = true;
+        ttTrack('CompletePayment', currentOrder);
+      }
 
       const area = document.getElementById('downloadArea');
       area.innerHTML = '';
