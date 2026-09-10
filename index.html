@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Combo 10 Mẫu Phôi Nền Word — Hiếu Làm Bài Thi</title>
+<title>Phôi Nền Word — Mua lẻ hoặc trọn bộ | Hiếu Làm Bài Thi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -43,6 +43,8 @@
   .btn:hover{background:var(--do-co-toi);}
   .btn:disabled{opacity:0.6;cursor:default;}
   .btn-lg{padding:15px 34px;font-size:16px;}
+  .btn-ghost{background:none;color:var(--muc-den);border:1.5px solid var(--border-nhe);}
+  .btn-ghost:hover{background:var(--nga-giay-toi);}
 
   /* Hero */
   .hero{padding:56px 0 60px;}
@@ -82,6 +84,19 @@
   }
   .section-title::before, .section-title::after{content:"";width:36px;height:1px;background:var(--vang-dong);}
 
+  /* Bảng giá */
+  .goi-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .goi-cards .goi-card{
+    background:#fff;border:1px solid var(--border-nhe);padding:26px 20px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .goi-card.noi-bat{border:2px solid var(--do-co);}
+  .goi-card .ten{font-family:'Noto Serif',serif;font-weight:700;font-size:17px;}
+  .goi-card .gia{font-family:'Noto Serif',serif;font-weight:700;font-size:24px;color:var(--do-co);}
+  .goi-card .mo-ta{font-size:12.5px;color:#6b665f;min-height:34px;}
+  .goi-card .btn{margin-top:10px;width:100%;}
+  .goi-card .tag{font-size:11px;font-weight:700;letter-spacing:.4px;color:var(--do-co);text-transform:uppercase;}
+
   /* Benefits */
   .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
   .benefit-card{
@@ -115,7 +130,7 @@
     background:#fff;border:1px solid var(--border-nhe);padding:32px;position:relative;
   }
   .quote-card::before{
-    content:"“";position:absolute;top:6px;left:16px;font-family:'Noto Serif',serif;font-size:56px;color:var(--vang-dong);line-height:1;
+    content:""";position:absolute;top:6px;left:16px;font-family:'Noto Serif',serif;font-size:56px;color:var(--vang-dong);line-height:1;
   }
   .quote-card p{font-family:'Noto Serif',serif;font-style:italic;font-size:17px;line-height:1.6;padding-left:8px;}
 
@@ -142,12 +157,37 @@
   /* Modal */
   .overlay{display:none;position:fixed;inset:0;background:rgba(34,31,29,0.6);align-items:center;justify-content:center;padding:20px;z-index:100;}
   .overlay.show{display:flex;}
-  .modal{background:#fff;max-width:400px;width:100%;padding:28px;border:1px solid var(--border-nhe);}
+  .modal{background:#fff;max-width:440px;width:100%;padding:28px;border:1px solid var(--border-nhe);max-height:92vh;overflow-y:auto;}
   .modal h2{font-size:19px;margin-bottom:6px;}
-  .modal .sub{font-size:13.5px;color:#6b665f;margin-bottom:20px;}
+  .modal .sub{font-size:13.5px;color:#6b665f;margin-bottom:18px;}
   .modal label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;margin-top:14px;}
-  .modal input{width:100%;border:1.5px solid var(--muc-den);padding:10px 12px;font-size:14px;font-family:inherit;}
+  .modal input[type=text],.modal input[type=email]{width:100%;border:1.5px solid var(--muc-den);padding:10px 12px;font-size:14px;font-family:inherit;}
   .modal .btn{width:100%;margin-top:22px;}
+  .modal .btn.btn-ghost{margin-top:10px;}
+
+  /* Chọn gói trong modal */
+  .goi-list{display:flex;flex-direction:column;gap:10px;}
+  .goi-item{
+    display:flex;align-items:center;gap:12px;border:1.5px solid var(--border-nhe);
+    padding:12px 14px;cursor:pointer;margin:0;
+  }
+  .goi-item:hover{border-color:var(--do-co);}
+  .goi-item input{accent-color:var(--do-co);width:16px;height:16px;flex-shrink:0;}
+  .goi-item .g-main{flex:1;display:flex;flex-direction:column;line-height:1.3;}
+  .goi-item .g-ten{font-weight:600;font-size:14px;}
+  .goi-item .g-desc{font-size:12px;color:#6b665f;}
+  .goi-item .g-gia{font-family:'Noto Serif',serif;font-weight:700;font-size:16px;color:var(--do-co);}
+
+  /* Chọn mẫu trong modal */
+  .mau-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .mau-pick{position:relative;border:2px solid transparent;cursor:pointer;background:var(--nga-giay-toi);}
+  .mau-pick img{aspect-ratio:3/4.24;object-fit:cover;width:100%;display:block;}
+  .mau-pick .mp-tag{position:absolute;top:4px;left:4px;background:var(--muc-den);color:#fff;font-size:10px;font-weight:600;padding:2px 6px;}
+  .mau-pick.on{border-color:var(--do-co);}
+  .mau-pick.on::after{content:"✓";position:absolute;bottom:4px;right:4px;width:20px;height:20px;background:var(--do-co);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+  .mau-count{margin-top:12px;font-size:13px;font-weight:600;text-align:center;}
+  .mau-count.du{color:#2c4a1f;}
+
   .qr-box{text-align:center;padding-top:6px;}
   .qr-box img{width:220px;height:220px;margin:0 auto 14px;border:1px solid var(--border-nhe);}
   .qr-box .code{font-family:'Noto Serif',serif;font-weight:700;font-size:17px;color:var(--do-co);margin-bottom:6px;}
@@ -155,6 +195,7 @@
   .qr-box .note{font-size:12.5px;color:#6b665f;line-height:1.5;}
   .status{margin-top:16px;padding:10px;text-align:center;font-size:13.5px;font-weight:600;background:var(--nga-giay-toi);}
   .status.paid{background:#e6efe0;color:#2c4a1f;}
+  #downloadArea .btn{margin-top:10px;}
   .close-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#6b665f;}
   .modal-wrap{position:relative;}
 
@@ -162,6 +203,7 @@
     nav{display:none;}
     .hero .wrap{grid-template-columns:1fr;}
     .hero h1{font-size:30px;}
+    .goi-cards{grid-template-columns:repeat(2,1fr);}
     .benefits{grid-template-columns:repeat(2,1fr);}
     .preview-grid{grid-template-columns:repeat(3,1fr);}
     .info-section .wrap{grid-template-columns:1fr;}
@@ -178,6 +220,7 @@
       <div class="logo-text">Hiếu <span>Làm</span> Bài Thi</div>
     </div>
     <nav>
+      <a href="#bang-gia">Bảng giá</a>
       <a href="#mau">Mẫu</a>
       <a href="#thong-tin">Thông tin</a>
       <button class="btn" id="openBuyTop">Mua ngay</button>
@@ -189,7 +232,7 @@
   <div class="wrap">
     <div>
       <div class="eyebrow">Tiết kiệm thời gian, bài viết chuyên nghiệp hơn</div>
-      <h1>Combo <span class="num">10</span> Mẫu<br>Phôi Nền Word</h1>
+      <h1>Mẫu <span class="num">Phôi Nền</span> Word<br>Mua lẻ hoặc trọn bộ</h1>
       <p class="hero-desc">File .docx dựng sẵn, canh lề chuẩn, đánh số trang tự động — chỉ cần thay nội dung. Phù hợp bài thu hoạch, báo cáo, tiểu luận, bài dự thi.</p>
       <div class="feature-row">
         <span><span class="dot"></span>Căn lề sẵn</span>
@@ -197,20 +240,53 @@
         <span><span class="dot"></span>Chỉ cần thay nội dung</span>
       </div>
       <div class="price-row">
-        <span class="amount">79.000₫</span>
-        <span class="unit">/ trọn bộ 10 mẫu</span>
+        <span class="amount">từ 15.000₫</span>
+        <span class="unit">/ mẫu lẻ — trọn bộ 10 mẫu chỉ 79.000₫</span>
       </div>
-      <button class="btn btn-lg" id="openBuy">Mua ngay</button>
+      <button class="btn btn-lg" id="openBuy">Chọn gói &amp; mua ngay</button>
       <div class="cta-note">Nhận file tải về ngay sau khi thanh toán</div>
     </div>
     <div class="hero-visual">
       <div class="badge-word"><span class="w">W</span>File Word chỉnh sửa được</div>
-      <img src="hero-collage.png" alt="Combo 10 mẫu phôi nền Word">
+      <img src="hero-collage.png" alt="Mẫu phôi nền Word">
     </div>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="bang-gia">
+  <div class="wrap">
+    <div class="section-title">Bảng giá</div>
+    <div class="goi-cards">
+      <div class="goi-card">
+        <div class="ten">1 mẫu lẻ</div>
+        <div class="gia">15.000₫</div>
+        <div class="mo-ta">Chọn 1 mẫu bất kỳ trong 10 mẫu</div>
+        <button class="btn buy-goi" data-goi="1">Mua</button>
+      </div>
+      <div class="goi-card">
+        <div class="ten">Combo 3 mẫu</div>
+        <div class="gia">35.000₫</div>
+        <div class="mo-ta">Tự chọn 3 mẫu — tiết kiệm hơn mua lẻ</div>
+        <button class="btn buy-goi" data-goi="3">Mua</button>
+      </div>
+      <div class="goi-card">
+        <div class="ten">Combo 5 mẫu</div>
+        <div class="gia">49.000₫</div>
+        <div class="mo-ta">Tự chọn 5 mẫu theo nhu cầu</div>
+        <button class="btn buy-goi" data-goi="5">Mua</button>
+      </div>
+      <div class="goi-card noi-bat">
+        <div class="tag">Đáng mua nhất</div>
+        <div class="ten">Trọn bộ 10 mẫu</div>
+        <div class="gia">79.000₫</div>
+        <div class="mo-ta">Đủ cả 10 mẫu, giá tốt nhất</div>
+        <button class="btn buy-goi" data-goi="10">Mua</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="wrap">
     <div class="section-title">Bạn nhận được gì?</div>
     <div class="benefits">
@@ -238,7 +314,7 @@
   </div>
 </section>
 
-<section class="section" id="mau">
+<section class="section section-alt" id="mau">
   <div class="wrap">
     <div class="section-title">Xem trước 10 mẫu</div>
     <div class="preview-grid">
@@ -256,7 +332,7 @@
   </div>
 </section>
 
-<section class="section section-alt info-section" id="thong-tin">
+<section class="section info-section" id="thong-tin">
   <div class="wrap">
     <div>
       <div class="section-title" style="justify-content:flex-start;margin-bottom:24px;">
@@ -264,9 +340,9 @@
       </div>
       <ul class="info-list">
         <li><span class="check">✓</span>Phù hợp cho bài thu hoạch, báo cáo, tiểu luận, bài dự thi</li>
-        <li><span class="check">✓</span>10 file Word chỉnh sửa được, tải về dùng ngay</li>
+        <li><span class="check">✓</span>File Word chỉnh sửa được, tải về dùng ngay</li>
         <li><span class="check">✓</span>Nhiều tone màu và phong cách khác nhau</li>
-        <li><span class="check">✓</span>Chỉ cần thay nội dung là sử dụng được</li>
+        <li><span class="check">✓</span>Mua lẻ từng mẫu hoặc chọn combo tiết kiệm</li>
       </ul>
     </div>
     <div class="quote-card">
@@ -289,11 +365,11 @@
       <div class="gift">🎁</div>
       <div>
         <div class="sb-title">Sẵn sàng sử dụng ngay</div>
-        <div class="sb-sub">Bộ 10 mẫu phôi nền Word chất lượng, tiện lợi</div>
+        <div class="sb-sub">Mẫu phôi nền Word — mua lẻ hoặc trọn bộ</div>
       </div>
     </div>
     <div class="left">
-      <div class="sb-price">79.000₫</div>
+      <div class="sb-price">từ 15.000₫</div>
       <button class="btn" id="openBuySticky">Mua ngay</button>
     </div>
   </div>
@@ -303,7 +379,47 @@
   <div class="modal modal-wrap">
     <button class="close-x" id="closeModal">✕</button>
 
-    <div id="formStep">
+    <!-- Bước 0: chọn gói -->
+    <div id="goiStep">
+      <h2>Chọn gói</h2>
+      <div class="sub">Bạn muốn mua bao nhiêu mẫu?</div>
+      <div class="goi-list">
+        <label class="goi-item">
+          <input type="radio" name="goi" value="1">
+          <span class="g-main"><span class="g-ten">1 mẫu lẻ</span><span class="g-desc">Chọn 1 mẫu bất kỳ</span></span>
+          <span class="g-gia">15.000₫</span>
+        </label>
+        <label class="goi-item">
+          <input type="radio" name="goi" value="3">
+          <span class="g-main"><span class="g-ten">Combo 3 mẫu</span><span class="g-desc">Tự chọn 3 mẫu</span></span>
+          <span class="g-gia">35.000₫</span>
+        </label>
+        <label class="goi-item">
+          <input type="radio" name="goi" value="5">
+          <span class="g-main"><span class="g-ten">Combo 5 mẫu</span><span class="g-desc">Tự chọn 5 mẫu</span></span>
+          <span class="g-gia">49.000₫</span>
+        </label>
+        <label class="goi-item">
+          <input type="radio" name="goi" value="10" checked>
+          <span class="g-main"><span class="g-ten">Trọn bộ 10 mẫu</span><span class="g-desc">Đủ cả 10 mẫu, giá tốt nhất</span></span>
+          <span class="g-gia">79.000₫</span>
+        </label>
+      </div>
+      <button class="btn" id="goiNext">Tiếp tục</button>
+    </div>
+
+    <!-- Bước 1: chọn mẫu (ẩn nếu chọn trọn bộ 10) -->
+    <div id="chonMauStep" style="display:none;">
+      <h2>Chọn mẫu</h2>
+      <div class="sub" id="chonMauSub">Chọn đúng số mẫu theo gói.</div>
+      <div class="mau-grid" id="mauGrid"></div>
+      <div class="mau-count" id="mauCount">Đã chọn 0</div>
+      <button class="btn" id="chonMauNext">Tiếp tục</button>
+      <button class="btn btn-ghost" id="chonMauBack">Quay lại</button>
+    </div>
+
+    <!-- Bước 2: thông tin nhận file -->
+    <div id="formStep" style="display:none;">
       <h2>Thông tin nhận file</h2>
       <div class="sub">Sau khi chuyển khoản, trang sẽ tự hiện nút tải file — không cần chờ email.</div>
       <label>Họ tên</label>
@@ -311,43 +427,140 @@
       <label>Email liên hệ (để hỗ trợ khi cần)</label>
       <input type="email" id="emailInput" placeholder="ban@email.com">
       <button class="btn" id="submitOrder">Tạo mã thanh toán</button>
+      <button class="btn btn-ghost" id="formBack">Quay lại</button>
     </div>
 
+    <!-- Bước 3: QR + trạng thái -->
     <div id="qrStep" style="display:none;">
       <div class="qr-box">
         <img id="qrImg" src="" alt="Mã QR thanh toán">
         <div class="code" id="orderCode"></div>
-        <div class="amount">Số tiền: <strong>79.000₫</strong></div>
+        <div class="amount">Số tiền: <strong id="qrAmount"></strong></div>
         <div class="note">Quét mã bằng app ngân hàng hoặc Ví MoMo/ZaloPay. Giữ nguyên nội dung chuyển khoản để hệ thống tự đối chiếu.</div>
         <div class="status" id="statusBox">Đang chờ thanh toán...</div>
-        <a href="#" id="downloadBtn" class="btn" style="display:none;margin-top:14px;text-decoration:none;text-align:center;">Tải file ngay</a>
+        <div id="downloadArea"></div>
       </div>
     </div>
+
   </div>
 </div>
 
 <script>
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvfzNAkpnnnqF_2EIP11pnLnunYYdCEdqm25qpNfQ80wsgAIA-H8Uo0aH7dPCI-fpg/exec';
+  const TONG_SO_MAU = 10;
 
   const overlay = document.getElementById('overlay');
-  function openModal(){ overlay.classList.add('show'); }
-  document.getElementById('openBuy').onclick = openModal;
-  document.getElementById('openBuyTop').onclick = openModal;
-  document.getElementById('openBuySticky').onclick = openModal;
-  document.getElementById('closeModal').onclick = () => { overlay.classList.remove('show'); location.reload(); };
+  const goiStep = document.getElementById('goiStep');
+  const chonMauStep = document.getElementById('chonMauStep');
+  const formStep = document.getElementById('formStep');
+  const qrStep = document.getElementById('qrStep');
 
-  // Sticky bar shows after scrolling past hero
+  let selectedPkg = '10';
+  let selectedItems = [];   // vd: ['2','5','7']
+  let pollTimer = null;
+
+  function showStep(el){
+    [goiStep, chonMauStep, formStep, qrStep].forEach(function(s){ s.style.display = 'none'; });
+    el.style.display = 'block';
+  }
+
+  function openModal(){ overlay.classList.add('show'); showStep(goiStep); }
+  function openModalWithPkg(pkg){
+    var radio = document.querySelector('input[name="goi"][value="' + pkg + '"]');
+    if (radio) radio.checked = true;
+    openModal();
+  }
+
+  document.getElementById('openBuy').onclick = function(){ openModal(); };
+  document.getElementById('openBuyTop').onclick = function(){ openModal(); };
+  document.getElementById('openBuySticky').onclick = function(){ openModal(); };
+  Array.prototype.forEach.call(document.querySelectorAll('.buy-goi'), function(b){
+    b.onclick = function(){ openModalWithPkg(b.getAttribute('data-goi')); };
+  });
+  document.getElementById('closeModal').onclick = function(){ overlay.classList.remove('show'); location.reload(); };
+
+  // Sticky bar hiện sau khi cuộn qua hero
   const stickyBar = document.getElementById('stickyBar');
   const heroBtn = document.getElementById('openBuy');
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', function(){
     const heroBottom = heroBtn.getBoundingClientRect().bottom;
     if (heroBottom < 0) stickyBar.classList.add('show');
     else stickyBar.classList.remove('show');
   });
 
-  let pollTimer = null;
+  // Dựng lưới chọn mẫu 1 lần
+  const mauGrid = document.getElementById('mauGrid');
+  for (let i = 1; i <= TONG_SO_MAU; i++) {
+    const n = String(i);
+    const nn = ('0' + i).slice(-2);
+    const cell = document.createElement('div');
+    cell.className = 'mau-pick';
+    cell.setAttribute('data-n', n);
+    cell.innerHTML = '<span class="mp-tag">Mẫu ' + nn + '</span><img src="mau-0' + nn + '.jpg" alt="Mẫu ' + nn + '">';
+    cell.onclick = function(){ toggleMau(n, cell); };
+    mauGrid.appendChild(cell);
+  }
 
-  document.getElementById('submitOrder').onclick = async () => {
+  function toggleMau(n, cell){
+    const limit = Number(selectedPkg);
+    const idx = selectedItems.indexOf(n);
+    if (idx >= 0) {
+      selectedItems.splice(idx, 1);
+      cell.classList.remove('on');
+    } else {
+      if (selectedItems.length >= limit) {
+        alert('Gói của bạn chỉ chọn ' + limit + ' mẫu. Bỏ bớt 1 mẫu trước khi chọn thêm.');
+        return;
+      }
+      selectedItems.push(n);
+      cell.classList.add('on');
+    }
+    updateMauCount();
+  }
+
+  function updateMauCount(){
+    const limit = Number(selectedPkg);
+    const box = document.getElementById('mauCount');
+    box.textContent = 'Đã chọn ' + selectedItems.length + ' / ' + limit;
+    box.classList.toggle('du', selectedItems.length === limit);
+  }
+
+  // Bước 0 -> tiếp
+  document.getElementById('goiNext').onclick = function(){
+    const checked = document.querySelector('input[name="goi"]:checked');
+    selectedPkg = checked ? checked.value : '10';
+    selectedItems = [];
+    Array.prototype.forEach.call(mauGrid.children, function(c){ c.classList.remove('on'); });
+
+    if (selectedPkg === '10') {
+      showStep(formStep);
+    } else {
+      document.getElementById('chonMauSub').textContent =
+        'Chọn đúng ' + selectedPkg + ' mẫu bạn muốn nhận.';
+      updateMauCount();
+      showStep(chonMauStep);
+    }
+  };
+
+  // Bước 1 -> tiếp / quay lại
+  document.getElementById('chonMauBack').onclick = function(){ showStep(goiStep); };
+  document.getElementById('chonMauNext').onclick = function(){
+    const limit = Number(selectedPkg);
+    if (selectedItems.length !== limit) {
+      alert('Vui lòng chọn đúng ' + limit + ' mẫu.');
+      return;
+    }
+    showStep(formStep);
+  };
+
+  // Bước 2 -> quay lại
+  document.getElementById('formBack').onclick = function(){
+    if (selectedPkg === '10') showStep(goiStep);
+    else showStep(chonMauStep);
+  };
+
+  // Bước 2 -> tạo mã thanh toán
+  document.getElementById('submitOrder').onclick = async function(){
     const name = document.getElementById('nameInput').value.trim();
     const email = document.getElementById('emailInput').value.trim();
     if (!email) { alert('Vui lòng nhập email liên hệ để được hỗ trợ khi cần.'); return; }
@@ -356,39 +569,57 @@
     btn.disabled = true; btn.textContent = 'Đang tạo mã...';
 
     try {
-      const url = APPS_SCRIPT_URL + '?action=create_order&name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email);
+      const itemsParam = (selectedPkg === '10') ? '' : selectedItems.join(',');
+      const url = APPS_SCRIPT_URL
+        + '?action=create_order'
+        + '&name=' + encodeURIComponent(name)
+        + '&email=' + encodeURIComponent(email)
+        + '&package=' + encodeURIComponent(selectedPkg)
+        + '&items=' + encodeURIComponent(itemsParam);
       const res = await fetch(url);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      document.getElementById('formStep').style.display = 'none';
-      document.getElementById('qrStep').style.display = 'block';
       document.getElementById('qrImg').src = data.qrUrl;
       document.getElementById('orderCode').textContent = 'Mã đơn hàng: ' + data.code;
+      document.getElementById('qrAmount').textContent = Number(data.amount).toLocaleString('vi-VN') + '₫';
+      document.getElementById('statusBox').textContent = 'Đang chờ thanh toán...';
+      document.getElementById('statusBox').classList.remove('paid');
+      document.getElementById('downloadArea').innerHTML = '';
+      showStep(qrStep);
 
-      pollTimer = setInterval(() => checkStatus(data.code), 5000);
+      pollTimer = setInterval(function(){ checkStatus(data.code); }, 5000);
     } catch (err) {
       alert('Không tạo được mã thanh toán. Lỗi: ' + err.message);
       btn.disabled = false; btn.textContent = 'Tạo mã thanh toán';
     }
   };
 
-  async function checkStatus(code) {
+  async function checkStatus(code){
     const url = APPS_SCRIPT_URL + '?action=check_status&code=' + encodeURIComponent(code);
     const res = await fetch(url);
     const data = await res.json();
     const box = document.getElementById('statusBox');
 
     if (data.status === 'DA_THANH_TOAN') {
-      box.textContent = 'Đã thanh toán thành công! Bấm nút bên dưới để tải file.';
+      box.textContent = 'Đã thanh toán thành công! Tải file bên dưới.';
       box.classList.add('paid');
       clearInterval(pollTimer);
 
-      const dl = document.getElementById('downloadBtn');
-      dl.href = data.downloadUrl;
-      dl.target = '_blank';
-      dl.style.display = 'block';
+      const area = document.getElementById('downloadArea');
+      area.innerHTML = '';
+      const list = data.downloads || (data.downloadUrl ? [{ label: 'file', url: data.downloadUrl }] : []);
+      list.forEach(function(d){
+        const a = document.createElement('a');
+        a.href = d.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.className = 'btn';
+        a.style.cssText = 'display:block;text-decoration:none;text-align:center;';
+        a.textContent = 'Tải ' + d.label;
+        area.appendChild(a);
+      });
     }
   }
 </script>
