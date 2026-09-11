@@ -471,6 +471,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
      Mọi lời gọi đều bọc try/catch + kiểm tra ttq để không vỡ trang nếu Pixel bị chặn.
      ============================================================================== */
   const TEN_GOI = { '1': '1 mẫu lẻ', '3': 'Combo 3 mẫu', '5': 'Combo 5 mẫu', '10': 'Trọn bộ 10 mẫu' };
+  const GIA_GOI = { '1': 15000, '3': 35000, '5': 49000, '10': 79000 };
 
   function ttEventData(order){
     return {
@@ -493,10 +494,42 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   function ttClick(name){
     try {
       if (window.ttq && typeof window.ttq.track === 'function') {
-        window.ttq.track('ClickButton', { content_name: name });
+        window.ttq.track('ClickButton', { content_name: name, content_type: 'product', content_id: 'landing-cta' });
       }
     } catch (e) {}
   }
+  // Xem nội dung sản phẩm — bắn 1 lần khi tải trang
+  function ttViewContent(){
+    try {
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track('ViewContent', {
+          value: 15000, currency: 'VND', content_type: 'product',
+          content_id: 'phoi-nen-word', content_name: 'Mẫu phôi nền Word'
+        });
+      }
+    } catch (e) {}
+  }
+  // Thêm vào giỏ — bắn khi khách chọn xong gói và bấm "Tiếp tục"
+  function ttAddToCart(pkg){
+    try {
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track('AddToCart', {
+          value: GIA_GOI[pkg] || 0, currency: 'VND', content_type: 'product',
+          content_id: 'goi-' + pkg, content_name: TEN_GOI[pkg] || ('Gói ' + pkg + ' mẫu'),
+          quantity: Number(pkg) || 1
+        });
+      }
+    } catch (e) {}
+  }
+  // Advanced Matching — gửi email khách hàng (Pixel SDK tự hash) để tăng khớp sự kiện
+  function ttIdentify(email){
+    try {
+      if (window.ttq && typeof window.ttq.identify === 'function' && email) {
+        window.ttq.identify({ email: email });
+      }
+    } catch (e) {}
+  }
+  ttViewContent();
 
   const overlay = document.getElementById('overlay');
   const goiStep = document.getElementById('goiStep');
@@ -588,6 +621,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     selectedItems = [];
     Array.prototype.forEach.call(mauGrid.children, function(c){ c.classList.remove('on'); });
 
+    // >>> TikTok: đã chọn gói (thêm vào giỏ)
+    ttAddToCart(selectedPkg);
+
     if (selectedPkg === '10') {
       showStep(formStep);
     } else {
@@ -620,6 +656,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     const name = document.getElementById('nameInput').value.trim();
     const email = document.getElementById('emailInput').value.trim();
     if (!email) { alert('Vui lòng nhập email liên hệ để được hỗ trợ khi cần.'); return; }
+
+    // >>> TikTok: Advanced Matching — gắn email trước khi bắn InitiateCheckout/Purchase
+    ttIdentify(email);
 
     const btn = document.getElementById('submitOrder');
     btn.disabled = true; btn.textContent = 'Đang tạo mã...';
