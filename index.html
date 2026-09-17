@@ -112,6 +112,26 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   }
   .section-title::before, .section-title::after{content:"";width:36px;height:1px;background:var(--vang-dong);}
 
+  /* Tủ văn bản */
+  .tvb-section .wrap{display:grid;grid-template-columns:0.95fr 1.05fr;gap:48px;align-items:center;}
+  .tvb-visual img{width:100%;height:auto;border:1px solid var(--border-nhe);box-shadow:0 8px 24px rgba(34,31,29,.1);}
+  .tvb-badge{
+    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--xanh-reu);
+    background:#fff;border:1px solid var(--border-nhe);padding:6px 14px;border-radius:20px;margin-bottom:14px;
+  }
+  .tvb-content h2{font-size:26px;margin-bottom:10px;}
+  .tvb-desc{font-size:15px;color:#4a4642;margin-bottom:18px;}
+  .tvb-features{list-style:none;margin-bottom:22px;}
+  .tvb-features li{display:flex;gap:10px;margin-bottom:12px;font-size:14.5px;}
+  .tvb-features .check{
+    width:20px;height:20px;border-radius:50%;background:var(--do-co);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:2px;
+  }
+  .tvb-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:20px;}
+  .tvb-price-row .amount{font-size:28px;font-weight:700;color:var(--do-co);font-family:'Noto Serif',serif;}
+  .tvb-price-row .unit{font-size:13.5px;color:var(--xanh-reu);font-weight:500;}
+  .tvb-req{font-size:12.5px;color:#6b665f;margin-top:12px;}
+
   /* FAQ */
   .faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
   .faq-item{background:#fff;border:1px solid var(--border-nhe);border-radius:6px;padding:4px 20px;}
@@ -267,6 +287,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .benefits{grid-template-columns:repeat(2,1fr);}
     .preview-grid{grid-template-columns:repeat(3,1fr);}
     .info-section .wrap{grid-template-columns:1fr;}
+    .tvb-section .wrap{grid-template-columns:1fr;}
     .sticky-bar .sb-sub{display:none;}
   }
 </style>
@@ -283,6 +304,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <a href="#bang-gia">Bảng giá</a>
       <a href="#mau">Mẫu</a>
       <a href="#thong-tin">Thông tin</a>
+      <a href="#tu-van-ban">Tủ văn bản</a>
       <button class="btn" id="openBuyTop">Mua ngay</button>
     </nav>
   </div>
@@ -412,6 +434,33 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     </div>
     <div class="quote-card">
       <p>Một nền tài liệu đẹp là khởi đầu cho một bài viết ấn tượng.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section tvb-section" id="tu-van-ban">
+  <div class="wrap">
+    <div class="tvb-visual">
+      <img src="tuvanban-preview.png" alt="Giao diện phần mềm Tủ văn bản" loading="lazy">
+    </div>
+    <div class="tvb-content">
+      <div class="tvb-badge">🖥️ Phần mềm Windows — offline 100%</div>
+      <h2>Tủ Văn Bản — quản lý &amp; tra cứu văn bản ngay trên máy tính</h2>
+      <p class="tvb-desc">Ứng dụng cài đặt trên Windows, lưu và phân loại văn bản, tài liệu cá nhân, tìm lại chỉ trong vài giây — không cần Internet, không tài khoản, không ai truy cập được dữ liệu ngoài chính bạn.</p>
+      <ul class="tvb-features">
+        <li><span class="check">✓</span>Thêm văn bản kèm file đính kèm (PDF, Word...), xem PDF ngay trong app</li>
+        <li><span class="check">✓</span>Tìm kiếm tiếng Việt không dấu theo số hiệu, trích yếu, từ khóa</li>
+        <li><span class="check">✓</span>Lọc theo loại văn bản, lĩnh vực, cơ quan ban hành, năm</li>
+        <li><span class="check">✓</span>Đánh dấu quan trọng / thường dùng để tra cứu nhanh</li>
+        <li><span class="check">✓</span>Sao lưu — khôi phục dữ liệu bằng 1 nút bấm</li>
+        <li><span class="check">✓</span>Dữ liệu lưu hoàn toàn trên máy bạn — không cloud, không telemetry</li>
+      </ul>
+      <div class="tvb-price-row">
+        <span class="amount">69.000₫</span>
+        <span class="unit">mua 1 lần — dùng vĩnh viễn</span>
+      </div>
+      <button class="btn btn-lg" id="openBuyTVB">Mua Tủ Văn Bản</button>
+      <div class="tvb-req">Yêu cầu: máy tính Windows 10/11. Sau khi cài đặt, không cần Internet để sử dụng.</div>
     </div>
   </div>
 </section>
@@ -563,8 +612,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
      ============================================================================== */
   const TEN_GOI = { '1': '1 mẫu lẻ', '3': 'Combo 3 mẫu', '5': 'Combo 5 mẫu', '10': 'Trọn bộ 10 mẫu' };
   const GIA_GOI = { '1': 15000, '3': 35000, '5': 49000, '10': 79000 };
+  const TUVANBAN_PRICE = 69000;
 
   function ttEventData(order){
+    if (order.product === 'tu-van-ban') {
+      return {
+        value: Number(order.amount) || 0, currency: 'VND', content_type: 'product',
+        content_id: 'tu-van-ban', content_name: 'Tủ Văn Bản',
+        quantity: 1, order_id: order.code || undefined
+      };
+    }
     return {
       value: Number(order.amount) || 0,
       currency: 'VND',
@@ -574,6 +631,17 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       quantity: Number(order.pkg) || 1,
       order_id: order.code || undefined
     };
+  }
+  // Thêm vào giỏ — Tủ văn bản (chỉ 1 gói duy nhất, không cần chọn số lượng)
+  function ttAddToCartTVB(){
+    try {
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track('AddToCart', {
+          value: TUVANBAN_PRICE, currency: 'VND', content_type: 'product',
+          content_id: 'tu-van-ban', content_name: 'Tủ Văn Bản', quantity: 1
+        });
+      }
+    } catch (e) {}
   }
   function ttTrack(eventName, order){
     try {
@@ -630,6 +698,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
   let selectedPkg = '10';
   let selectedItems = [];   // vd: ['2','5','7']
+  let currentProduct = 'phoi-word';   // 'phoi-word' | 'tu-van-ban'
   let pollTimer = null;
 
   // Đơn hàng hiện tại + cờ chống bắn trùng CompletePayment khi polling lặp
@@ -641,7 +710,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     el.style.display = 'block';
   }
 
-  function openModal(){ overlay.classList.add('show'); showStep(goiStep); }
+  const FORM_SUB_DEFAULT = document.querySelector('#formStep .sub').textContent;
+  function openModal(){
+    currentProduct = 'phoi-word';
+    document.querySelector('#formStep .sub').textContent = FORM_SUB_DEFAULT;
+    overlay.classList.add('show');
+    showStep(goiStep);
+  }
   function openModalWithPkg(pkg){
     var radio = document.querySelector('input[name="goi"][value="' + pkg + '"]');
     if (radio) radio.checked = true;
@@ -658,6 +733,17 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     };
   });
   document.getElementById('closeModal').onclick = function(){ overlay.classList.remove('show'); location.reload(); };
+
+  // Mua Tủ Văn Bản — sản phẩm 1 gói duy nhất, bỏ qua bước chọn gói/chọn mẫu
+  document.getElementById('openBuyTVB').onclick = function(){
+    currentProduct = 'tu-van-ban';
+    ttClick('Mua Tủ Văn Bản');
+    ttAddToCartTVB();
+    document.querySelector('#formStep .sub').textContent =
+      'Bạn đang mua Tủ Văn Bản (69.000₫). Sau khi chuyển khoản, trang sẽ tự hiện link tải bộ cài — không cần chờ email.';
+    overlay.classList.add('show');
+    showStep(formStep);
+  };
 
   // Sticky bar hiện sau khi cuộn qua hero
   const stickyBar = document.getElementById('stickyBar');
@@ -738,6 +824,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
   // Bước 2 -> quay lại
   document.getElementById('formBack').onclick = function(){
+    if (currentProduct === 'tu-van-ban') { overlay.classList.remove('show'); return; }
     if (selectedPkg === '10') showStep(goiStep);
     else showStep(chonMauStep);
   };
@@ -755,20 +842,30 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     btn.disabled = true; btn.textContent = 'Đang tạo mã...';
 
     try {
-      const itemsParam = (selectedPkg === '10') ? '' : selectedItems.join(',');
-      const url = APPS_SCRIPT_URL
-        + '?action=create_order'
-        + '&name=' + encodeURIComponent(name)
-        + '&email=' + encodeURIComponent(email)
-        + '&package=' + encodeURIComponent(selectedPkg)
-        + '&items=' + encodeURIComponent(itemsParam);
+      let url;
+      if (currentProduct === 'tu-van-ban') {
+        url = APPS_SCRIPT_URL
+          + '?action=create_order'
+          + '&name=' + encodeURIComponent(name)
+          + '&email=' + encodeURIComponent(email)
+          + '&product=tu-van-ban';
+      } else {
+        const itemsParam = (selectedPkg === '10') ? '' : selectedItems.join(',');
+        url = APPS_SCRIPT_URL
+          + '?action=create_order'
+          + '&name=' + encodeURIComponent(name)
+          + '&email=' + encodeURIComponent(email)
+          + '&package=' + encodeURIComponent(selectedPkg)
+          + '&items=' + encodeURIComponent(itemsParam)
+          + '&product=phoi-word';
+      }
       const res = await fetch(url);
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
       // Ghi nhận đơn hiện tại + reset cờ tracking cho đơn mới
-      currentOrder = { code: data.code, amount: Number(data.amount), pkg: selectedPkg };
+      currentOrder = { code: data.code, amount: Number(data.amount), pkg: selectedPkg, product: currentProduct };
       purchaseTracked = false;
 
       document.getElementById('qrImg').src = data.qrUrl;
