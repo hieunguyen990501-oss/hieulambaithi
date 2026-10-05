@@ -331,6 +331,23 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   .qr-box .note{font-size:12.5px;color:var(--chu-phu);line-height:1.5;}
   .status{margin-top:16px;padding:10px;text-align:center;font-size:13.5px;font-weight:700;background:var(--kem-sang);border-radius:8px;}
   .status.paid{background:#e6efe0;color:#2c4a1f;}
+  .pay-steps{list-style:none;margin:0 0 14px;padding:0;display:flex;gap:6px;text-align:left;}
+  .pay-steps li{flex:1;display:flex;gap:6px;align-items:flex-start;font-size:11.5px;line-height:1.35;color:var(--chu-phu);background:var(--kem-sang);border-radius:8px;padding:7px;}
+  .pay-steps b{flex:none;width:18px;height:18px;border-radius:50%;background:var(--do-ruou);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;}
+  .qr-dl{display:inline-block;margin:-4px auto 12px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--do-ruou);background:#fff;border:1px solid var(--do-ruou);border-radius:999px;cursor:pointer;}
+  .qr-dl:hover{background:var(--kem-sang);}
+  .bank-info{margin-top:14px;text-align:left;border:1px dashed var(--border-nhe);border-radius:10px;padding:10px 12px;}
+  .bank-title{font-weight:800;font-size:13px;margin-bottom:6px;text-align:center;}
+  .bank-row{display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border-nhe);}
+  .bank-row:last-of-type{border-bottom:none;}
+  .bank-row span{flex:none;width:74px;font-size:12.5px;color:var(--chu-phu);}
+  .bank-row strong{flex:1;min-width:0;white-space:nowrap;}
+  .bank-row .memo{color:var(--do-ruou);}
+  .copy-btn{flex:none;font-size:11.5px;padding:4px 7px;border:1px solid var(--border-nhe);background:#fff;border-radius:6px;cursor:pointer;}
+  .copy-btn.done{background:#e6efe0;color:#2c4a1f;border-color:#b9d0ab;}
+  .bank-warn{font-size:12px;color:var(--do-ruou);margin-top:6px;line-height:1.45;}
+  .keep-page{margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--chu-phu);background:#fff8e6;border:1px solid #f1dfa8;border-radius:8px;padding:9px 10px;text-align:left;}
+  .keep-page.hide{display:none;}
   #downloadArea .btn{margin-top:10px;}
   .close-x{
     position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--chu-phu);
@@ -799,11 +816,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <!-- Bước 3: QR + trạng thái -->
     <div id="qrStep" style="display:none;">
       <div class="qr-box">
+        <ol class="pay-steps">
+          <li><b>1</b><span>Quét mã QR hoặc chuyển khoản theo thông tin bên dưới</span></li>
+          <li><b>2</b><span>Giữ nguyên trang này, không tắt hay tải lại</span></li>
+          <li><b>3</b><span>Hệ thống tự xác nhận và hiện nút tải file</span></li>
+        </ol>
         <img id="qrImg" src="" alt="Mã QR thanh toán">
+        <button type="button" class="qr-dl" id="qrDownload">⬇ Tải mã QR về máy</button>
         <div class="code" id="orderCode"></div>
         <div class="amount">Số tiền: <strong id="qrAmount"></strong></div>
-        <div class="note">Quét mã bằng app ngân hàng hoặc Ví MoMo/ZaloPay. Giữ nguyên nội dung chuyển khoản để hệ thống tự đối chiếu.</div>
+        <div class="note">Quét mã bằng app ngân hàng hoặc Ví MoMo/ZaloPay. Trên điện thoại: tải mã QR về rồi mở app ngân hàng → Quét QR → chọn ảnh từ thư viện.</div>
+
+        <div class="bank-info">
+          <div class="bank-title">Hoặc chuyển khoản thủ công</div>
+          <div class="bank-row"><span>Ngân hàng</span><strong>MB Bank (Quân Đội)</strong></div>
+          <div class="bank-row"><span>Số tài khoản</span><strong id="bankAcc">0300115930005</strong><button type="button" class="copy-btn" data-copy="bankAcc">Chép</button></div>
+          <div class="bank-row"><span>Chủ tài khoản</span><strong>NGUYEN MINH HIEU</strong></div>
+          <div class="bank-row"><span>Số tiền</span><strong id="bankAmount"></strong><button type="button" class="copy-btn" data-copy="bankAmount">Chép</button></div>
+          <div class="bank-row"><span>Nội dung CK</span><strong id="bankMemo" class="memo"></strong><button type="button" class="copy-btn" data-copy="bankMemo">Chép</button></div>
+          <div class="bank-warn">⚠ Ghi <b>đúng nội dung chuyển khoản</b> và <b>đúng số tiền</b> để hệ thống tự đối chiếu.</div>
+        </div>
+
         <div class="status" id="statusBox">Đang chờ thanh toán...</div>
+        <div class="keep-page" id="keepPage">⏳ Sau khi chuyển khoản, vui lòng <b>giữ nguyên trang này</b>. Hệ thống tự kiểm tra mỗi 5 giây và hiện nút tải file trong khoảng 1–2 phút, không cần tải lại trang.</div>
         <div id="downloadArea"></div>
       </div>
     </div>
@@ -1133,6 +1168,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       document.getElementById('statusBox').textContent = 'Đang chờ thanh toán...';
       document.getElementById('statusBox').classList.remove('paid');
       document.getElementById('downloadArea').innerHTML = '';
+      document.getElementById('bankAmount').textContent = String(Number(data.amount));
+      document.getElementById('bankMemo').textContent = data.code;
+      document.getElementById('keepPage').classList.remove('hide');
       showStep(qrStep);
 
       // >>> TikTok: bắt đầu bước thanh toán (QR đã được tạo)
@@ -1145,6 +1183,39 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
   };
 
+  // Tải ảnh QR về máy (khách quét lại bằng app ngân hàng từ thư viện ảnh)
+  document.getElementById('qrDownload').onclick = async function(){
+    const src = document.getElementById('qrImg').src;
+    const name = 'QR-' + (currentOrder ? currentOrder.code : 'thanh-toan') + '.png';
+    try {
+      const blob = await (await fetch(src)).blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+    } catch (e) {
+      // Không tải trực tiếp được → mở ảnh tab mới để khách nhấn giữ / Lưu ảnh
+      window.open(src, '_blank', 'noopener');
+    }
+  };
+
+  // Nút sao chép STK / số tiền / nội dung CK
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.onclick = function(){
+      const text = document.getElementById(btn.dataset.copy).textContent.trim();
+      const done = function(){
+        btn.textContent = 'Đã chép'; btn.classList.add('done');
+        setTimeout(function(){ btn.textContent = 'Chép'; btn.classList.remove('done'); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function(){ prompt('Sao chép thủ công:', text); });
+      } else {
+        prompt('Sao chép thủ công:', text);
+      }
+    };
+  });
+
   async function checkStatus(code){
     const url = APPS_SCRIPT_URL + '?action=check_status&code=' + encodeURIComponent(code);
     const res = await fetch(url);
@@ -1155,6 +1226,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       box.textContent = 'Đã thanh toán thành công! Tải file bên dưới.';
       box.classList.add('paid');
       clearInterval(pollTimer);
+      document.getElementById('keepPage').classList.add('hide');
 
       // >>> TikTok: xác nhận đã nhận tiền — chỉ bắn 1 lần cho đúng đơn này
       if (!purchaseTracked && currentOrder && currentOrder.code === code) {
