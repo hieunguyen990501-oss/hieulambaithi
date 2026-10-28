@@ -331,6 +331,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   .qr-box .note{font-size:12.5px;color:var(--chu-phu);line-height:1.5;}
   .status{margin-top:16px;padding:10px;text-align:center;font-size:13.5px;font-weight:700;background:var(--kem-sang);border-radius:8px;}
   .status.paid{background:#e6efe0;color:#2c4a1f;}
+  .order-error{margin:12px 0 0;padding:10px 12px;font-size:13px;line-height:1.5;color:#7a1c1c;background:#fdecec;border:1px solid #f3c2c2;border-radius:8px;}
+  .order-error a{color:#7a1c1c;font-weight:700;}
   .pay-steps{list-style:none;margin:0 0 14px;padding:0;display:flex;gap:6px;text-align:left;}
   .pay-steps li{flex:1;display:flex;gap:6px;align-items:flex-start;font-size:11.5px;line-height:1.35;color:var(--chu-phu);background:var(--kem-sang);border-radius:8px;padding:7px;}
   .pay-steps b{flex:none;width:18px;height:18px;border-radius:50%;background:var(--do-ruou);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;}
@@ -809,6 +811,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <input type="text" id="nameInput" placeholder="Nguyễn Văn A">
       <label>Email liên hệ (để hỗ trợ khi cần)</label>
       <input type="email" id="emailInput" placeholder="ban@email.com">
+      <div class="order-error" id="orderError" role="alert" hidden></div>
       <button class="btn" id="submitOrder">Tạo mã thanh toán</button>
       <button class="btn btn-ghost" id="formBack">Quay lại</button>
     </div>
@@ -1123,17 +1126,49 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     else showStep(chonMauStep);
   };
 
+  // Hiện lỗi ngay trong form (thay cho alert) — kèm kênh Zalo để khách được hỗ trợ
+  function showOrderError(msg){
+    const box = document.getElementById('orderError');
+    if (!msg) { box.hidden = true; box.innerHTML = ''; return; }
+    box.innerHTML = msg + '<br>Cần hỗ trợ gấp: nhắn Zalo <a href="https://zalo.me/0349296041" target="_blank" rel="noopener">0349 296 041</a>.';
+    box.hidden = false;
+  }
+
+  // Dịch lỗi kỹ thuật thành câu khách hiểu được
+  function friendlyOrderError(err){
+    if (err && err.name === 'AbortError') {
+      return 'Kết nối tới hệ thống thanh toán quá chậm. Vui lòng kiểm tra mạng rồi bấm lại.';
+    }
+    if (err instanceof TypeError) {
+      // fetch() chỉ ném TypeError khi không nhận được phản hồi hợp lệ (mất mạng, CORS, máy chủ lỗi)
+      return navigator.onLine === false
+        ? 'Thiết bị đang mất kết nối mạng. Vui lòng kết nối lại rồi bấm "Tạo mã thanh toán".'
+        : 'Hệ thống thanh toán đang tạm gián đoạn, chưa tạo được mã. Vui lòng thử lại sau ít phút.';
+    }
+    if (err && err.server) return err.message;   // lỗi nghiệp vụ backend trả về (vd: chọn thiếu mẫu)
+    return 'Chưa tạo được mã thanh toán. Vui lòng thử lại.';
+  }
+
+  // Chống tạo đơn trùng khi khách bấm nhiều lần / mạng chậm
+  let creatingOrder = false;
+  const SUBMIT_LABEL = 'Tạo mã thanh toán';
+
   // Bước 2 -> tạo mã thanh toán
   document.getElementById('submitOrder').onclick = async function(){
+    if (creatingOrder) return;
+    showOrderError('');
     const name = document.getElementById('nameInput').value.trim();
     const email = document.getElementById('emailInput').value.trim();
-    if (!email) { alert('Vui lòng nhập email liên hệ để được hỗ trợ khi cần.'); return; }
+    if (!email) { showOrderError('Vui lòng nhập email liên hệ để được hỗ trợ khi cần.'); return; }
 
     // >>> TikTok: Advanced Matching — gắn email trước khi bắn InitiateCheckout/Purchase
     ttIdentify(email);
 
     const btn = document.getElementById('submitOrder');
+    creatingOrder = true;
     btn.disabled = true; btn.textContent = 'Đang tạo mã...';
+    const ctrl = new AbortController();
+    const timeout = setTimeout(function(){ ctrl.abort(); }, 25000);
 
     try {
       let url;
@@ -1153,10 +1188,14 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           + '&items=' + encodeURIComponent(itemsParam)
           + '&product=phoi-word';
       }
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: ctrl.signal });
       if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
+      let data;
+      try { data = await res.json(); } catch (e) { throw new Error('Phản hồi không hợp lệ'); }
+      if (data.error) { const e = new Error(data.error); e.server = true; throw e; }
+      if (!data.code || !data.qrUrl) throw new Error('Thiếu mã đơn hoặc mã QR');
+
+      if (pollTimer) clearInterval(pollTimer);   // đơn cũ (nếu có) thôi kiểm tra
 
       // Ghi nhận đơn hiện tại + reset cờ tracking cho đơn mới
       currentOrder = { code: data.code, amount: Number(data.amount), pkg: selectedPkg, product: currentProduct };
@@ -1178,8 +1217,12 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
       pollTimer = setInterval(function(){ checkStatus(data.code); }, 5000);
     } catch (err) {
-      alert('Không tạo được mã thanh toán. Lỗi: ' + err.message);
-      btn.disabled = false; btn.textContent = 'Tạo mã thanh toán';
+      console.error('create_order thất bại:', err);
+      showOrderError(friendlyOrderError(err));
+    } finally {
+      clearTimeout(timeout);
+      creatingOrder = false;
+      btn.disabled = false; btn.textContent = SUBMIT_LABEL;   // mở lại nút cho lần mua sau
     }
   };
 
